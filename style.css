@@ -1,0 +1,42 @@
+/* #myButton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+} */
+
+/* question dark and light mode */
+
+#mode{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+
+    /* 3D effect */
+    box-shadow: 0 6px #2e7d32;
+    transition: all 0.1s ease;
+    
+
+
+}
+
+.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+.white-mode {
+    background-color: white;
+    color: black;
+}
