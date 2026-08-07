@@ -13,7 +13,7 @@
 
 /* question dark and light mode */
 
-#mode{
+/* #mode{
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -21,22 +21,85 @@
     font-size: 18px;
     font-weight: bold;
     border-radius: 8px;
-    cursor: pointer;
+    cursor: pointer; */
 
     /* 3D effect */
-    box-shadow: 0 6px #2e7d32;
+    /* box-shadow: 0 6px #2e7d32;
     transition: all 0.1s ease;
     
 
 
-}
+} */
 
-.dark-mode {
+/* .dark-mode {
     background-color: #333;
     color: white;
-}
+} */
 
-.white-mode {
+/* .white-mode {
     background-color: white;
     color: black;
+} */
+
+
+
+
+
+
+
+
+/* Centering Layout */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0f172a;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* Card Element with Floating Animation */
+.card {
+    position: relative;
+    padding: 30px 50px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: float 4s ease-in-out infinite;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.6);
+}
+
+/* Idle Floating Effect */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Dynamic Ripple Particle Styles */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-effect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
