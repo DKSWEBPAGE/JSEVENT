@@ -100,29 +100,66 @@ let isDark=false;
 
 const card = document.getElementById('animatedCard');
 
-card.addEventListener('click', function (e) {
-    // Calculate click coordinates relative to the card
-    const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+// 1. Gentle 3D Tilt Effect
+card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
 
-    // Create the particle element
+    // Dialed back values for minimal tilt rotation
+    const rotateX = -(y / rect.height) * 10; 
+    const rotateY = (x / rect.width) * 10;
+
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+// Smoothly restore default placement on mouse leave
+card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+});
+
+// 2. Click Interaction Handler (Ripple & Upgraded Exploding Spark Burst)
+card.addEventListener('click', function (e) {
+    const rect = this.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    // Trigger core expanding click ripple
     const ripple = document.createElement('span');
     ripple.classList.add('ripple');
-
-    // Size the particle dynamically based on element footprint
     const size = Math.max(rect.width, rect.height);
     ripple.style.width = ripple.style.height = `${size}px`;
-
-    // Position the element right at the cursor position
-    ripple.style.left = `${x - size / 2}px`;
-    ripple.style.top = `${y - size / 2}px`;
-
-    // Append to card
+    ripple.style.left = `${clickX - size / 2}px`;
+    ripple.style.top = `${clickY - size / 2}px`;
     this.appendChild(ripple);
 
-    // Clean up DOM after animation completes
-    ripple.addEventListener('animationend', () => {
-        ripple.remove();
-    });
+    ripple.addEventListener('animationend', () => ripple.remove());
+
+    // Generate 24 explosive bright spark pieces
+    const colors = ['#ff007f', '#00dfd8', '#ffeb3b', '#ffffff', '#a855f7'];
+    for (let i = 0; i < 24; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Blast radius velocity for a prominent pop layout
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = Math.random() * 90 + 40; 
+        const destinationX = Math.cos(angle) * velocity;
+        const destinationY = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--x', `${destinationX}px`);
+        particle.style.setProperty('--y', `${destinationY}px`);
+        particle.style.setProperty('--duration', `${Math.random() * 0.4 + 0.3}s`);
+        
+        // Apply random color scheme matching the sparkles array
+        const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.background = chosenColor;
+        particle.style.color = chosenColor; // Powers the CSS box-shadow glow
+        particle.style.left = `${clickX}px`;
+        particle.style.top = `${clickY}px`;
+        
+        this.appendChild(particle);
+        particle.addEventListener('animationend', () => particle.remove());
+    }
 });
+

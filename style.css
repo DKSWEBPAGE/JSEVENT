@@ -60,46 +60,61 @@ body {
     overflow: hidden;
 }
 
-/* Card Element with Floating Animation */
+
+/* Upgraded Spark Particles (Larger & Shorter Distance) */
+.particle {
+    position: absolute;
+    width: 10px;                         /* Increased from 6px to 10px */
+    height: 10px;                        /* Increased from 6px to 10px */
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px currentColor;   /* Added a vivid glow effect to each spark */
+    animation: explode var(--duration) cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes explode {
+    to {
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0.2);
+        opacity: 0;
+    }
+}
+
+
+/* Card Converted to Modern Button Element */
 .card {
     position: relative;
-    padding: 30px 50px;
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    color: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    padding: 16px 36px;                 /* Compact button sizing */
+    background: #4f46e5;                /* Clean royal blue/indigo background */
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 12px;                /* Modern smooth rounded corners */
+    border: none;                       /* Removes default button edge lines */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); /* Softer base shadow */
     cursor: pointer;
     user-select: none;
     text-align: center;
-    transform: translateY(0);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    animation: float 4s ease-in-out infinite;
+    transition: background 0.2s ease, transform 0.1s ease-out, box-shadow 0.2s ease;
 }
 
+/* Button Hover State Color Swap */
 .card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.6);
+    background: #4338ca;                /* Slightly deeper purple-blue on hover */
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
 }
 
-/* Idle Floating Effect */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+/* Adjust nested text styling specifically for the button layout */
+.card h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    background: none;                   /* Removes previous heavy gradient */
+    -webkit-text-fill-color: initial;   /* Restores solid white font color */
 }
 
-/* Dynamic Ripple Particle Styles */
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(0);
-    animation: ripple-effect 0.6s linear;
-    pointer-events: none;
-}
-
-@keyframes ripple-effect {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
+/* Hide description text if it exists inside the card element */
+.card p {
+    display: none;
 }
